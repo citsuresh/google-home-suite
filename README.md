@@ -73,6 +73,44 @@ google-home-suite/
 - **.NET**
   - .NET SDK `>= 8.0`
 
+To build the Android foreground service, you need the Google Home APIs Android SDK, which is not available on Maven Central. Follow these steps:
+
+### 1. Download the SDK
+- Sign in to [Google Home Developers](https://developers.home.google.com/) and download the **Home APIs Android SDK** package.
+- Unzip the SDK into a local directory, for example:
+
+```
+/local-maven/google-home-android-sdk/
+```
+
+### 2. Configure Local Maven Repository
+Add the local Maven repository to your Gradle settings. In `settings.gradle.kts` or `settings.gradle`, include:
+
+```kotlin
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url = uri("/local-maven/google-home-android-sdk")
+        }
+    }
+}
+```
+
+### 3. Verify Setup
+Ensure the SDK artifacts are correctly placed in the local Maven directory and Gradle can resolve them during build.
+
+---
+
+**Summary of Requirements:**
+- Android Studio + SDK
+- Kotlin/Java toolchains
+- Home APIs Android SDK downloaded and hosted locally
+- Local Maven setup with `mavenLocal()` and custom `maven { url = uri(...) }`
+
 ---
 
 ## Getting Started
